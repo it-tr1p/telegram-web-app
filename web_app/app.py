@@ -1,13 +1,6 @@
 #!/usr/bin/env python
 # pylint: disable=unused-argument
-# This program is dedicated to the public domain under the CC0 license.
 
-"""
-Simple example of a Telegram WebApp which displays a color picker.
-The static website for this website is hosted by the PTB team for your convenience.
-Currently only showcases starting the WebApp via a KeyboardButton, as all other methods would
-require a bot token.
-"""
 import json
 import logging
 
@@ -18,7 +11,7 @@ from telegram.ext import Application, CommandHandler, ContextTypes, MessageHandl
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
 )
-# set higher logging level for httpx to avoid all GET and POST requests being logged
+# Set higher logging level for httpx to avoid all GET and POST requests being logged
 logging.getLogger("httpx").setLevel(logging.WARNING)
 
 logger = logging.getLogger(__name__)
@@ -26,13 +19,13 @@ logger = logging.getLogger(__name__)
 
 # Define a `/start` command handler.
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    """Send a message with a button that opens a the web app."""
+    """Send a message with a button that opens the web app."""
     await update.message.reply_text(
-        "Please press the button below to choose a color via the WebApp.",
+        "Please press the button below to fill out the form via the WebApp.",
         reply_markup=ReplyKeyboardMarkup.from_button(
             KeyboardButton(
-                text="Open the color picker!",
-                web_app=WebAppInfo(url="https://it-tr1p.github.io/telegram-web-app/?v=2"),
+                text="Open the form!",
+                web_app=WebAppInfo(url="https://it-tr1p.github.io/telegram-web-app/"),  # Replace with your actual URL
             )
         ),
     )
@@ -41,13 +34,17 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 # Handle incoming WebAppData
 async def web_app_data(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     """Print the received data and remove the button."""
-    # Here we use `json.loads`, since the WebApp sends the data JSON serialized string
-    # (see webappbot.html)
     data = json.loads(update.effective_message.web_app_data.data)
+
+    # Log the received data
+    logger.info(f"Received data from WebApp: {data}")
+    print(data['city'])
     await update.message.reply_html(
         text=(
-            f"You selected the color with the HEX value <code>{data['hex']}</code>. The "
-            f"corresponding RGB value is <code>{tuple(data['rgb'].values())}</code>."
+            f"You selected the city: <code>{data['city']}</code><br>"
+            f"Number of adults: <code>{data['adults']}</code><br>"
+            f"Number of children: <code>{data['children']}</code><br>"
+            f"Budget: <code>{data['budget']}</code>"
         ),
         reply_markup=ReplyKeyboardRemove(),
     )
