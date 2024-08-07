@@ -32,7 +32,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         reply_markup=ReplyKeyboardMarkup.from_button(
             KeyboardButton(
                 text="Open the color picker!",
-                web_app=WebAppInfo(url="https://it-tr1p.github.io/telegram-web-app/"),
+                web_app=WebAppInfo(url="https://it-tr1p.github.io/telegram-web-app/?v=2"),
             )
         ),
     )
