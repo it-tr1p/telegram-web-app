@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tour Selection</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@telegram/ui-kit@1.0.0/dist/telegram-ui-kit.min.css">
+    <!-- Подключение CSS Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
             display: flex;
@@ -13,15 +14,16 @@
             height: 100vh;
             margin: 0;
             font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
         }
         .container {
             width: 100%;
             max-width: 500px;
             margin: 20px;
             padding: 20px;
-            border: 1px solid #ccc;
+            border: 1px solid #ced4da;
             border-radius: 8px;
-            background-color: #f9f9f9;
+            background-color: #ffffff;
         }
         .question {
             margin-bottom: 10px;
@@ -36,7 +38,7 @@
     <div class="container">
         <div class="question">Выберите город:</div>
         <div class="input-field">
-            <select id="city">
+            <select id="city" class="form-control">
                 <option value="Пхукет">Пхукет</option>
                 <option value="Паттайя">Паттайя</option>
             </select>
@@ -44,23 +46,28 @@
 
         <div class="question">Введите количество взрослых:</div>
         <div class="input-field">
-            <input type="number" id="adults" min="1" placeholder="Введите количество взрослых">
+            <input type="number" id="adults" class="form-control" min="1" placeholder="Введите количество взрослых">
         </div>
 
         <div class="question">Выберите количество детей:</div>
         <div class="input-field">
-            <input type="number" id="children" min="0" placeholder="Введите количество детей">
+            <input type="number" id="children" class="form-control" min="0" placeholder="Введите количество детей">
         </div>
 
         <div class="question">Напишите ваш бюджет в долларах:</div>
         <div class="input-field">
-            <input type="number" id="budget" min="0" placeholder="Введите ваш бюджет">
+            <input type="number" id="budget" class="form-control" min="0" placeholder="Введите ваш бюджет">
         </div>
 
-        <button id="submit">Отправить</button>
+        <button id="submit" class="btn btn-primary">Отправить</button>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@telegram/ui-kit@1.0.0/dist/telegram-ui-kit.min.js"></script>
+    <!-- Подключение JS библиотек Bootstrap и зависимостей -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Ваши скрипты логирования и отправки данных -->
     <script>
         document.getElementById('submit').addEventListener('click', () => {
             const data = {
