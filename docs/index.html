@@ -4,19 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simple Telegram Web App</title>
+    <link rel="stylesheet" href="styles.css">
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-</head>
-<body>
-    <h1>Welcome to Telegram Web App</h1>
-    <button onclick="sendData()">Send Data to Bot</button>
-
     <script>
         function sendData() {
-            const data = { message: "Hello from Web App!" };
-            Telegram.WebApp.sendData(JSON.stringify(data)); // Send data to the bot
+            const data = {
+                chat_id: Telegram.WebApp.initDataUnsafe.user.id,
+                message: "Hello from Web App!"
+            };
+
+            fetch('http://localhost:5000/webhook', { // Локальный сервер
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.text())
+            .then(responseText => console.log(responseText))
+            .catch(error => console.error('Error:', error));
         }
 
         Telegram.WebApp.ready(); // Notify Telegram that the Web App is ready
     </script>
+</head>
+<body>
+    <h1>Welcome to Telegram Web App</h1>
+    <button onclick="sendData()">Send Data to Bot</button>
 </body>
 </html>
