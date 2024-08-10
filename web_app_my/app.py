@@ -28,7 +28,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         reply_markup=ReplyKeyboardMarkup.from_button(
             KeyboardButton(
                 text="Open the form!",
-                web_app=WebAppInfo(url="https://it-tr1p.github.io/telegram-web-app/?v=2"),
+                web_app=WebAppInfo(url="https://it-tr1p.github.io/telegram-web-app/?v=3"),
                 # Replace with your actual URL
             )
         ),
