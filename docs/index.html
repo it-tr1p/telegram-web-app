@@ -67,8 +67,14 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    <!-- Ваши скрипты для отправки данных -->
+    <!-- Скрипт для отправки данных в Telegram через WebApp API -->
     <script>
+        let tg = window.Telegram.WebApp;
+
+        tg.expand();
+        tg.MainButton.textColor = '#FFFFFF';
+        tg.MainButton.color = '#2cab37';
+
         document.getElementById('submit').addEventListener('click', () => {
             const data = {
                 city: document.getElementById('city').value,
@@ -77,14 +83,7 @@
                 budget: document.getElementById('budget').value
             };
 
-            // Отладка
-            console.log('Sending data:', data);
-
-            // Замените YOUR_BOT_TOKEN и YOUR_CHAT_ID на ваши значения
-            const botToken = '7429026052:AAHmhRb1MazTFom5JUfx03t9GXT-WuT6_Ic';
-            const chatId = '1166690657';
-
-            // Формирование сообщения
+            // Формирование сообщения для отправки
             const message = `
                 Новый запрос:
                 Город: ${data.city}
@@ -93,25 +92,14 @@
                 Бюджет: ${data.budget}
             `;
 
-            // Отправка данных в Telegram бот
-            fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    chat_id: chatId,
-                    text: message
-                }),
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Success:', data);
-                alert('Данные успешно отправлены в Telegram!');
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-                alert('Произошла ошибка при отправке данных.');
+            // Настройка и отображение MainButton
+            tg.MainButton.setText("Отправить данные");
+            tg.MainButton.show();
+
+            // Обработчик нажатия на MainButton
+            tg.onEvent('mainButtonClicked', () => {
+                tg.sendData(JSON.stringify(data)); // Отправка данных боту
+                tg.MainButton.hide(); // Скрытие кнопки после отправки
             });
         });
     </script>

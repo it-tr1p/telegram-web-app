@@ -17,17 +17,22 @@ logging.getLogger("httpx").setLevel(logging.WARNING)
 logger = logging.getLogger(__name__)
 
 
-# Define a `/start` command handler.
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    """Send a message with a button that opens the web app."""
+    """Send a message with a button that opens the web app and display chat_id."""
+    chat_id = update.effective_chat.id  # Получаем chat_id
+
+    # Отправляем сообщение с кнопкой для открытия WebApp и chat_id
     await update.message.reply_text(
+        f"Your chat ID is: <code>{chat_id}</code>"
         "Please press the button below to fill out the form via the WebApp.",
         reply_markup=ReplyKeyboardMarkup.from_button(
             KeyboardButton(
                 text="Open the form!",
-                web_app=WebAppInfo(url="https://it-tr1p.github.io/telegram-web-app/?v=1"),  # Replace with your actual URL
+                web_app=WebAppInfo(url="https://it-tr1p.github.io/telegram-web-app/?v=2"),
+                # Replace with your actual URL
             )
         ),
+        parse_mode='HTML'
     )
 
 

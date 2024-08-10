@@ -15,7 +15,7 @@ logger = logging.getLogger(__name__)
 api_id = '22799945'
 api_hash = 'ed0f03dad816c05929cc330286d12d14'
 phone = '+37125974980'
-SEND_MESSAGE = True
+SEND_MESSAGE = False
 message_for_client = ('Здравствуйте, увидели ваше сообщение об аренде, '
                       'пройдите короткий опрос в нашем боте, '
                       'и после уточнения информации о заселении с вами в '
